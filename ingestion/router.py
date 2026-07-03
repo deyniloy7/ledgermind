@@ -1,7 +1,7 @@
 from fastapi import APIRouter,  UploadFile, File
 from ingestion.service import process_upload
 
-router = APIRouter(prefix="/api/invoices", tags=["ingestion"])
+router = APIRouter(prefix="/invoices", tags=["ingestion"])
 
 @router.post("/upload")
 async def upload_invoice(file: UploadFile = File(...)):
