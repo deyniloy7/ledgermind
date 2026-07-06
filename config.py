@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     app_name: str = "LedgerMind"
     app_version: str = "0.1.0"
     llm_provider: str = "claude"
+    api_version: str = "v1"
 
     class Config:
         env_file = ".env"
