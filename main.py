@@ -7,17 +7,18 @@ from exceptions import LedgerMindException
 app = FastAPI(
     title=settings.app_name,
     description="AI powered invoice and financial ledger system",
-    version=settings.app_version
+    version=settings.app_version,
 )
 
 app.add_exception_handler(LedgerMindException, ledger_mind_exception_handler)
 
 app.include_router(ingestion_router, prefix=f"/api/{settings.api_version}")
 
+
 @app.get("/health")
 async def health_check():
     return {
-        "status": "ok", 
+        "status": "ok",
         "app": settings.app_name,
-        "version": settings.app_version
-        }
+        "version": settings.app_version,
+    }
