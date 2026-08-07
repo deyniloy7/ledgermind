@@ -4,6 +4,7 @@ from ingestion.router import router as ingestion_router
 from exceptions_handler import ledger_mind_exception_handler
 from exceptions import LedgerMindException
 from observability.logging import configure_logging
+from observability.middleware import RequestIDMiddleware
 
 app = FastAPI(
     title=settings.app_name,
@@ -12,6 +13,8 @@ app = FastAPI(
 )
 
 configure_logging()
+
+app.add_middleware(RequestIDMiddleware)
 
 app.add_exception_handler(LedgerMindException, ledger_mind_exception_handler)
 
