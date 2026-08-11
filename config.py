@@ -1,3 +1,4 @@
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -13,8 +14,7 @@ class Settings(BaseSettings):
     llm_provider: str = "claude"
     api_version: str = "v1"
 
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(env_file=".env")
 
 
 settings = Settings()
