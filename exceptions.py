@@ -48,3 +48,12 @@ class EmptyFileError(LedgerMindException):
             error_code="EMPTY_FILE",
             status_code=400,
         )
+
+
+class InvalidProviderResponseError(LedgerMindException):
+    def __init__(self, raw_response: str):
+        super().__init__(
+            message=f"Provider returned invalid JSON: {raw_response[:200]}",
+            error_code="INVALID_PROVIDER_RESPONSE",
+            status_code=502,
+        )
