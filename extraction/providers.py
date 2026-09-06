@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 import json
 
 from anthropic import AsyncAnthropic
+from openai import AsyncOpenAI
 
 from exceptions import InvalidProviderResponseError
 from extraction.schemas import ExtractedInvoice
@@ -12,6 +13,44 @@ class LLMProvider(ABC):
     @abstractmethod
     async def extract_invoice(self, file_bytes: bytes) -> ExtractedInvoice:
         pass
+
+    def build_prompt(self) -> str:
+        """Build the extraction instruction prompt sent to the provider.
+
+        Explicitly specifies field names, types, and output format so the
+        model returns JSON matching ExtractedInvoice's schema, rather than
+        a plausible-but-mismatched structure.
+
+        Returns:
+            The full prompt text as a single string.
+        """
+        return """Extract the following invoice fields as JSON:
+                    - vendor_name (string)
+                    - invoice_date (string, ISO 8601 format YYYY-MM-DD)
+                    - currency (string, 3-letter code like USD, INR)
+                    - total_amount (number, no currency symbols)
+                    - line_items (array of objects, each with:
+                        description, quantity, unit_price, line_total)
+
+                    Return ONLY valid JSON matching this exact structure. No
+                    explanation, no markdown formatting, no code fences.
+                """
+
+    def parse_extraction_response(self, raw_text: str) -> ExtractedInvoice:
+        cleaned_json = raw_text.strip()
+
+        if cleaned_json.startswith("```"):
+            cleaned_json = cleaned_json.split("\n", 1)[1]
+
+        if cleaned_json.endswith("```"):
+            cleaned_json = cleaned_json.rsplit("\n", 1)[0]
+
+        try:
+            parsed_data = json.loads(cleaned_json)
+        except json.JSONDecodeError:
+            raise InvalidProviderResponseError(raw_response=raw_text)
+        extracted_invoice = ExtractedInvoice(**parsed_data)
+        return extracted_invoice
 
 
 class ClaudeProvider(LLMProvider):
@@ -54,45 +93,39 @@ class ClaudeProvider(LLMProvider):
                                 "data": encoded_file,
                             },
                         },
-                        {"type": "text", "text": self._build_prompt()},
+                        {"type": "text", "text": self.build_prompt()},
                     ],
                 }
             ],
         )
         raw_json = response.content[0].text
-        cleaned_json = raw_json.strip()
+        return self.parse_extraction_response(raw_json)
 
-        if cleaned_json.startswith("```"):
-            cleaned_json = cleaned_json.split("\n", 1)[1]
 
-        if cleaned_json.endswith("```"):
-            cleaned_json = cleaned_json.rsplit("\n", 1)[0]
+class OpenAIProvider(LLMProvider):
+    def __init__(self, api_key: str):
+        self.client = AsyncOpenAI(api_key=api_key)
 
-        try:
-            parsed_data = json.loads(cleaned_json)
-        except json.JSONDecodeError:
-            raise InvalidProviderResponseError(raw_response=raw_json)
-        extracted_invoice = ExtractedInvoice(**parsed_data)
-        return extracted_invoice
+    async def extract_invoice(self, file_bytes: bytes) -> ExtractedInvoice:
+        encoded_file = base64.standard_b64encode(file_bytes).decode("utf-8")
+        data_uri = f"data:application/pdf;base64,{encoded_file}"
 
-    def _build_prompt(self) -> str:
-        """Build the extraction instruction prompt sent to Claude.
+        response = await self.client.chat.completions.create(
+            model="gpt-4o",
+            max_tokens=2048,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "file",
+                            "file": {"filename": "invoice.pdf", "file_data": data_uri},
+                        },
+                        {"type": "text", "text": self.build_prompt()},
+                    ],
+                }
+            ],
+        )
 
-        Explicitly specifies field names, types, and output format so the
-        model returns JSON matching ExtractedInvoice's schema, rather than
-        a plausible-but-mismatched structure.
-
-        Returns:
-            The full prompt text as a single string.
-        """
-        return """Extract the following invoice fields as JSON:
-                    - vendor_name (string)
-                    - invoice_date (string, ISO 8601 format YYYY-MM-DD)
-                    - currency (string, 3-letter code like USD, INR)
-                    - total_amount (number, no currency symbols)
-                    - line_items (array of objects, each with:
-                        description, quantity, unit_price, line_total)
-
-                    Return ONLY valid JSON matching this exact structure. No
-                    explanation, no markdown formatting, no code fences.
-                """
+        raw_json = response.choices[0].message.content
+        return self.parse_extraction_response(raw_json)
