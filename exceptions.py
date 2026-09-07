@@ -57,3 +57,12 @@ class InvalidProviderResponseError(LedgerMindException):
             error_code="INVALID_PROVIDER_RESPONSE",
             status_code=502,
         )
+
+
+class InvalidProviderError(LedgerMindException):
+    def __init__(self, provider_name: str):
+        super().__init__(
+            message=f"Provider not available or incorrect: {provider_name}",
+            error_code="INVALID_PROVIDER",
+            status_code=500,
+        )
