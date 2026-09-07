@@ -59,6 +59,18 @@ class InvalidProviderResponseError(LedgerMindException):
         )
 
 
+class ExtractionValidationError(LedgerMindException):
+    def __init__(self, parsed_data: str, validation_error: str):
+        super().__init__(
+            message=(
+                f"Extracted data failed validation: {validation_error} "
+                f"(raw data: {parsed_data})"
+            ),
+            error_code="EXTRACTION_VALIDATION_FAILED",
+            status_code=500,
+        )
+
+
 class InvalidProviderError(LedgerMindException):
     def __init__(self, provider_name: str):
         super().__init__(

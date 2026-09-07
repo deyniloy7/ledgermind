@@ -4,8 +4,9 @@ import json
 
 from anthropic import AsyncAnthropic
 from openai import AsyncOpenAI
+from pydantic import ValidationError
 
-from exceptions import InvalidProviderResponseError
+from exceptions import ExtractionValidationError, InvalidProviderResponseError
 from extraction.schemas import ExtractedInvoice
 
 
@@ -47,9 +48,16 @@ class LLMProvider(ABC):
 
         try:
             parsed_data = json.loads(cleaned_json)
-        except json.JSONDecodeError:
-            raise InvalidProviderResponseError(raw_response=raw_text)
-        extracted_invoice = ExtractedInvoice(**parsed_data)
+        except json.JSONDecodeError as exc:
+            raise InvalidProviderResponseError(raw_response=raw_text) from exc
+
+        try:
+            extracted_invoice = ExtractedInvoice(**parsed_data)
+        except ValidationError as exc:
+            raise ExtractionValidationError(
+                parsed_data=parsed_data, validation_error=str(exc)
+            ) from exc
+
         return extracted_invoice
 
 
