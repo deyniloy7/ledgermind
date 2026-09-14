@@ -1,9 +1,12 @@
 import json
+from unittest.mock import patch
 
+import anthropic
+import httpx2
 import pytest
 
 from config import settings
-from exceptions import ExtractionValidationError
+from exceptions import ExtractionValidationError, ProviderUnavailableError
 from extraction.providers import ClaudeProvider, OpenAIProvider
 from extraction.schemas import ExtractedInvoice
 
@@ -21,6 +24,27 @@ def test_parse_extraction_response_raises_validation_error_on_invalid_json():
         provider.parse_extraction_response(incomplete_json)
 
 
+@pytest.mark.asyncio
+async def test_extract_invoice_raises_provider_unavailable_on_api_error():
+    # Arrange
+    provider = ClaudeProvider(api_key=settings.anthropic_api_key)
+    fake_request = httpx2.Request(
+        method="POST", url="https://api.anthropic.com/v1/messages"
+    )
+    fake_error = anthropic.APIError(
+        message="Rate limit exceeded", request=fake_request, body=None
+    )
+
+    # Act & Assert
+    with patch.object(provider.client.messages, "create", side_effect=fake_error):
+        with pytest.raises(ProviderUnavailableError):
+            await provider.extract_invoice(file_bytes=b"fake pdf content")
+
+
+@pytest.mark.skipif(
+    not settings.anthropic_api_key.startswith("sk-ant-"),
+    reason="Anthropic console not yet funded",
+)
 @pytest.mark.asyncio
 async def test_claude_invoice_returns_correctly():
     # Arrange
