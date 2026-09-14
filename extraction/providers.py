@@ -3,10 +3,16 @@ from abc import ABC, abstractmethod
 import json
 
 from anthropic import AsyncAnthropic
+import anthropic
 from openai import AsyncOpenAI
+import openai
 from pydantic import ValidationError
 
-from exceptions import ExtractionValidationError, InvalidProviderResponseError
+from exceptions import (
+    ExtractionValidationError,
+    InvalidProviderResponseError,
+    ProviderUnavailableError,
+)
 from extraction.schemas import ExtractedInvoice
 
 
@@ -86,26 +92,31 @@ class ClaudeProvider(LLMProvider):
                 valid JSON.
         """
         encoded_file = base64.standard_b64encode(file_bytes).decode("utf-8")
-        response = await self.client.messages.create(
-            model="claude-sonnet-4-5",
-            max_tokens=2048,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "document",
-                            "source": {
-                                "type": "base64",
-                                "media_type": "application/pdf",
-                                "data": encoded_file,
+
+        try:
+            response = await self.client.messages.create(
+                model="claude-sonnet-4-5",
+                max_tokens=2048,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "document",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": "application/pdf",
+                                    "data": encoded_file,
+                                },
                             },
-                        },
-                        {"type": "text", "text": self.build_prompt()},
-                    ],
-                }
-            ],
-        )
+                            {"type": "text", "text": self.build_prompt()},
+                        ],
+                    }
+                ],
+            )
+        except anthropic.APIError as exc:
+            raise ProviderUnavailableError(provider_error=str(exc)) from exc
+
         raw_json = response.content[0].text
         return self.parse_extraction_response(raw_json)
 
@@ -118,22 +129,28 @@ class OpenAIProvider(LLMProvider):
         encoded_file = base64.standard_b64encode(file_bytes).decode("utf-8")
         data_uri = f"data:application/pdf;base64,{encoded_file}"
 
-        response = await self.client.chat.completions.create(
-            model="gpt-4o",
-            max_tokens=2048,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "file",
-                            "file": {"filename": "invoice.pdf", "file_data": data_uri},
-                        },
-                        {"type": "text", "text": self.build_prompt()},
-                    ],
-                }
-            ],
-        )
+        try:
+            response = await self.client.chat.completions.create(
+                model="gpt-4o",
+                max_tokens=2048,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "file",
+                                "file": {
+                                    "filename": "invoice.pdf",
+                                    "file_data": data_uri,
+                                },
+                            },
+                            {"type": "text", "text": self.build_prompt()},
+                        ],
+                    }
+                ],
+            )
+        except openai.APIError as exc:
+            raise ProviderUnavailableError(provider_error=str(exc)) from exc
 
         raw_json = response.choices[0].message.content
         return self.parse_extraction_response(raw_json)

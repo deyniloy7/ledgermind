@@ -78,3 +78,12 @@ class InvalidProviderError(LedgerMindException):
             error_code="INVALID_PROVIDER",
             status_code=500,
         )
+
+
+class ProviderUnavailableError(LedgerMindException):
+    def __init__(self, provider_error: str):
+        super().__init__(
+            message=f"Extraction operation failed: {provider_error}",
+            error_code="PROVIDER_UNAVAILABLE",
+            status_code=502,
+        )

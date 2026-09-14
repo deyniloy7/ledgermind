@@ -1,0 +1,14 @@
+{
+  "vendor_name": "Sundar & Sons Traders",
+  "invoice_date": "2026-02-14",
+  "currency": "INR",
+  "total_amount": "14000.00",
+  "line_items": [
+    {
+      "description": "Office Chairs",
+      "quantity": 4,
+      "unit_price": "3500.00",
+      "line_total": "14000.00"
+    }
+  ]
+}
