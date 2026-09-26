@@ -1,4 +1,5 @@
 import json
+import os
 from unittest.mock import patch
 
 import anthropic
@@ -42,8 +43,11 @@ async def test_extract_invoice_raises_provider_unavailable_on_api_error():
 
 
 @pytest.mark.skipif(
-    not settings.anthropic_api_key.startswith("sk-ant-"),
-    reason="Anthropic console not yet funded",
+    os.getenv("RUN_REAL_API_EVAL_TESTS") != "true",
+    reason=(
+        "Real-API eval tests disabled by default — individual account, "
+        "cost-conscious standing decision"
+    ),
 )
 @pytest.mark.asyncio
 async def test_claude_invoice_returns_correctly():
@@ -65,6 +69,13 @@ async def test_claude_invoice_returns_correctly():
     assert extracted_json == expected_invoice
 
 
+@pytest.mark.skipif(
+    os.getenv("RUN_REAL_API_EVAL_TESTS") != "true",
+    reason=(
+        "Real-API eval tests disabled by default — individual account, "
+        "cost-conscious standing decision"
+    ),
+)
 @pytest.mark.asyncio
 async def test_openai_invoice_returns_correctly():
     # Arrange
