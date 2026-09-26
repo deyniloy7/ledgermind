@@ -87,3 +87,12 @@ class ProviderUnavailableError(LedgerMindException):
             error_code="PROVIDER_UNAVAILABLE",
             status_code=502,
         )
+
+
+class MaxTokensExceededError(LedgerMindException):
+    def __init__(self, stop_reason: str):
+        super().__init__(
+            message=f"Response was truncated before completion: {stop_reason}",
+            error_code="RESPONSE_TRUNCATED",
+            status_code=500,
+        )

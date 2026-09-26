@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from exceptions import (
     ExtractionValidationError,
     InvalidProviderResponseError,
+    MaxTokensExceededError,
     ProviderUnavailableError,
 )
 from extraction.schemas import ExtractedInvoice
@@ -117,6 +118,9 @@ class ClaudeProvider(LLMProvider):
         except anthropic.APIError as exc:
             raise ProviderUnavailableError(provider_error=str(exc)) from exc
 
+        if response.stop_reason == "max_tokens":
+            raise MaxTokensExceededError(stop_reason=response.stop_reason)
+
         raw_json = response.content[0].text
         return self.parse_extraction_response(raw_json)
 
@@ -151,6 +155,9 @@ class OpenAIProvider(LLMProvider):
             )
         except openai.APIError as exc:
             raise ProviderUnavailableError(provider_error=str(exc)) from exc
+
+        if response.choices[0].finish_reason == "length":
+            raise MaxTokensExceededError(stop_reason=response.choices[0].finish_reason)
 
         raw_json = response.choices[0].message.content
         return self.parse_extraction_response(raw_json)
