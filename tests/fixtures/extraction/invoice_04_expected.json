@@ -1,0 +1,14 @@
+{
+  "vendor_name": "Blackwood & Rhys Consultants",
+  "invoice_date": "2026-06-15",
+  "currency": "USD",
+  "total_amount": "2500.00",
+  "line_items": [
+    {
+      "description": "Legal Advisory - June",
+      "quantity": 1,
+      "unit_price": "2500.00",
+      "line_total": "2500.00"
+    }
+  ]
+}

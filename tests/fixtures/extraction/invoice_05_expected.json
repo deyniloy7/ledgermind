@@ -1,0 +1,368 @@
+{
+  "vendor_name": "Meridian Logistics Group",
+  "invoice_date": "2026-04-01",
+  "currency": "USD",
+  "total_amount": "7740.00",
+  "line_items": [
+    {
+      "description": "Warehouse Handling Unit 001",
+      "quantity": 2,
+      "unit_price": "13.50",
+      "line_total": "27.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 002",
+      "quantity": 3,
+      "unit_price": "14.50",
+      "line_total": "43.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 003",
+      "quantity": 4,
+      "unit_price": "15.50",
+      "line_total": "62.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 004",
+      "quantity": 5,
+      "unit_price": "16.50",
+      "line_total": "82.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 005",
+      "quantity": 1,
+      "unit_price": "17.50",
+      "line_total": "17.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 006",
+      "quantity": 2,
+      "unit_price": "18.50",
+      "line_total": "37.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 007",
+      "quantity": 3,
+      "unit_price": "19.50",
+      "line_total": "58.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 008",
+      "quantity": 4,
+      "unit_price": "20.50",
+      "line_total": "82.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 009",
+      "quantity": 5,
+      "unit_price": "21.50",
+      "line_total": "107.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 010",
+      "quantity": 1,
+      "unit_price": "22.50",
+      "line_total": "22.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 011",
+      "quantity": 2,
+      "unit_price": "23.50",
+      "line_total": "47.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 012",
+      "quantity": 3,
+      "unit_price": "24.50",
+      "line_total": "73.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 013",
+      "quantity": 4,
+      "unit_price": "25.50",
+      "line_total": "102.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 014",
+      "quantity": 5,
+      "unit_price": "26.50",
+      "line_total": "132.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 015",
+      "quantity": 1,
+      "unit_price": "27.50",
+      "line_total": "27.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 016",
+      "quantity": 2,
+      "unit_price": "28.50",
+      "line_total": "57.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 017",
+      "quantity": 3,
+      "unit_price": "29.50",
+      "line_total": "88.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 018",
+      "quantity": 4,
+      "unit_price": "30.50",
+      "line_total": "122.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 019",
+      "quantity": 5,
+      "unit_price": "31.50",
+      "line_total": "157.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 020",
+      "quantity": 1,
+      "unit_price": "32.50",
+      "line_total": "32.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 021",
+      "quantity": 2,
+      "unit_price": "33.50",
+      "line_total": "67.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 022",
+      "quantity": 3,
+      "unit_price": "34.50",
+      "line_total": "103.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 023",
+      "quantity": 4,
+      "unit_price": "35.50",
+      "line_total": "142.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 024",
+      "quantity": 5,
+      "unit_price": "36.50",
+      "line_total": "182.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 025",
+      "quantity": 1,
+      "unit_price": "37.50",
+      "line_total": "37.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 026",
+      "quantity": 2,
+      "unit_price": "38.50",
+      "line_total": "77.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 027",
+      "quantity": 3,
+      "unit_price": "39.50",
+      "line_total": "118.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 028",
+      "quantity": 4,
+      "unit_price": "40.50",
+      "line_total": "162.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 029",
+      "quantity": 5,
+      "unit_price": "41.50",
+      "line_total": "207.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 030",
+      "quantity": 1,
+      "unit_price": "42.50",
+      "line_total": "42.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 031",
+      "quantity": 2,
+      "unit_price": "43.50",
+      "line_total": "87.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 032",
+      "quantity": 3,
+      "unit_price": "44.50",
+      "line_total": "133.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 033",
+      "quantity": 4,
+      "unit_price": "45.50",
+      "line_total": "182.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 034",
+      "quantity": 5,
+      "unit_price": "46.50",
+      "line_total": "232.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 035",
+      "quantity": 1,
+      "unit_price": "47.50",
+      "line_total": "47.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 036",
+      "quantity": 2,
+      "unit_price": "48.50",
+      "line_total": "97.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 037",
+      "quantity": 3,
+      "unit_price": "49.50",
+      "line_total": "148.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 038",
+      "quantity": 4,
+      "unit_price": "50.50",
+      "line_total": "202.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 039",
+      "quantity": 5,
+      "unit_price": "51.50",
+      "line_total": "257.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 040",
+      "quantity": 1,
+      "unit_price": "52.50",
+      "line_total": "52.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 041",
+      "quantity": 2,
+      "unit_price": "53.50",
+      "line_total": "107.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 042",
+      "quantity": 3,
+      "unit_price": "54.50",
+      "line_total": "163.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 043",
+      "quantity": 4,
+      "unit_price": "55.50",
+      "line_total": "222.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 044",
+      "quantity": 5,
+      "unit_price": "56.50",
+      "line_total": "282.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 045",
+      "quantity": 1,
+      "unit_price": "57.50",
+      "line_total": "57.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 046",
+      "quantity": 2,
+      "unit_price": "58.50",
+      "line_total": "117.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 047",
+      "quantity": 3,
+      "unit_price": "59.50",
+      "line_total": "178.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 048",
+      "quantity": 4,
+      "unit_price": "60.50",
+      "line_total": "242.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 049",
+      "quantity": 5,
+      "unit_price": "61.50",
+      "line_total": "307.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 050",
+      "quantity": 1,
+      "unit_price": "62.50",
+      "line_total": "62.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 051",
+      "quantity": 2,
+      "unit_price": "63.50",
+      "line_total": "127.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 052",
+      "quantity": 3,
+      "unit_price": "64.50",
+      "line_total": "193.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 053",
+      "quantity": 4,
+      "unit_price": "65.50",
+      "line_total": "262.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 054",
+      "quantity": 5,
+      "unit_price": "66.50",
+      "line_total": "332.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 055",
+      "quantity": 1,
+      "unit_price": "67.50",
+      "line_total": "67.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 056",
+      "quantity": 2,
+      "unit_price": "68.50",
+      "line_total": "137.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 057",
+      "quantity": 3,
+      "unit_price": "69.50",
+      "line_total": "208.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 058",
+      "quantity": 4,
+      "unit_price": "70.50",
+      "line_total": "282.00"
+    },
+    {
+      "description": "Warehouse Handling Unit 059",
+      "quantity": 5,
+      "unit_price": "71.50",
+      "line_total": "357.50"
+    },
+    {
+      "description": "Warehouse Handling Unit 060",
+      "quantity": 1,
+      "unit_price": "72.50",
+      "line_total": "72.50"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "vendor_name": "Crestview Manufacturing Co.",
+  "invoice_date": "2026-05-01",
+  "currency": "EUR",
+  "total_amount": "400.00",
+  "line_items": [
+    {
+      "description": "Steel Brackets",
+      "quantity": 50,
+      "unit_price": "8.00",
+      "line_total": "400.00"
+    }
+  ]
+}
