@@ -1,0 +1,14 @@
+{
+  "vendor_name": "Continental Freight Holdings",
+  "invoice_date": "2026-07-20",
+  "currency": "INR",
+  "total_amount": "450000.00",
+  "line_items": [
+    {
+      "description": "Freight Charges - Q2",
+      "quantity": 1,
+      "unit_price": "450000.00",
+      "line_total": "450000.00"
+    }
+  ]
+}

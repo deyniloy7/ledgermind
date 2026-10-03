@@ -1,0 +1,16 @@
+anthropic
+black
+fastapi
+flake8
+httpx2
+openai
+pydantic
+pydantic-settings
+pytest
+pytest-asyncio
+pytest-cov
+python-dotenv
+python-multipart
+sqlalchemy
+structlog
+uvicorn
