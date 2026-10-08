@@ -11,6 +11,7 @@ pytest-asyncio
 pytest-cov
 python-dotenv
 python-multipart
-sqlalchemy
+sqlalchemy[asyncio]
 structlog
 uvicorn
+psycopg[binary]

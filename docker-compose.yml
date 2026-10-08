@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5434:5432"
+    environment:
+      POSTGRES_USER: dniloy
+      POSTGRES_DB: ledgermind
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Password is required}
+
+volumes:
+  data:
